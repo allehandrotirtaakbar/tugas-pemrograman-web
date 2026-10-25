@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Formulir kontak dan saran untuk portal pribadi mahasiswa.">
+  <title>Kontak &amp; Saran & Portal Pribadi Mahasiswa</title>
+</head>
+<body>
+
+  <header>
+    <h1>Kontak &amp; Saran</h1>
+    <p>Kirim pesan, pertanyaan, atau masukan untuk situs ini.</p>
+
+    <nav aria-label="Navigasi utama">
+      <ul>
+        <li><a href="index.html">Beranda</a></li>
+        <li><a href="index.html#profil">Profil</a></li>
+        <li><a href="index.html#portofolio">Portofolio</a></li>
+        <li><a href="kontak.html" aria-current="page">Kontak &amp; Saran</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+      <section>
+        <h2>Formulir Kontak</h2>
+        <p>Kolom bertanda <abbr title="wajib diisi">*</abbr> wajib diisi.</p>
+
+        <form action="#" method="post">
+
+          <fieldset>
+            <legend>Data diri</legend>
+
+            <p>
+              <label for="nama">Nama lengkap *</label>
+              <input type="text" id="nama" name="nama" required minlength="3" maxlength="50"
+                     autocomplete="name" placeholder="Contoh: Budi Santoso">
+            </p>
+
+            <p>
+              <label for="email">Alamat Email</label>
+              <input type="email" id="email" name="email" required
+                     autocomplete="email" placeholder="nama@contoh.com">
+            </p>
+
+            <p>
+              <label for="telepon">Nomor telepon</label>
+              <input type="tel" id="telepon" name="telepon"
+                     pattern="08[0-9]{8,11}" title="Awali dengan 08, total 10 sampai 13 digit angka"
+                     autocomplete="tel" placeholder="081234567890">
+            </p>
+
+            <p>
+              <label for="semester">Semester saat ini</label>
+              <input type="number" id="semester" name="semester" min="1" max="14" step="1" value="1">
+            </p>
+          </fieldset>
+
+          <fieldset>
+            <legend>Pesan Anda</legend>
+
+            <p>
+              <label for="jenis">Jenis pesan *</label>
+              <select id="jenis" name="jenis" required>
+                <option value="">-- Pilih jenis pesan --</option>
+                <option value="pertanyaan">Pertanyaan</option>
+                <option value="kerja-sama">Ajakan kerja sama</option>
+                <option value="saran">Saran untuk situs</option>
+              </select>
+            </p>
+
+            <p>
+              <label for="tanggal">Jadwal diskusi yang diinginkan</label>
+              <input type="date" id="tanggal" name="tanggal" min="2026-10-19" max="2027-12-31">
+            </p>
+
+            <p>
+              <label for="rating">Penilaian tampilan situs (1&ndash;5)</label>
+              <input type="range" id="rating" name="rating" min="1" max="5" step="1" value="3"
+                     oninput="document.getElementById('rating-nilai').value = this.value">
+              <output id="rating-nilai" for="rating">3</output>
+            </p>
+
+            <fieldset>
+              <legend>Cara balasan yang diinginkan *</legend>
+              <p>
+                <input 
+                type="radio" 
+                id="balas-email" 
+                name="balasan" 
+                value="email" required>
+                <label for="balas-email">Lewat surel</label>
+              </p>
+              <p>
+                <input 
+                type="radio" 
+                id="balas-telepon" 
+                name="balasan" 
+                value="telepon">
+                <label for="balas-telepon">Lewat telepon</label>
+              </p>
+            </fieldset>
+
+            <p>
+              <label for="pesan">Isi pesan *</label>
+              <textarea id="pesan" name="pesan" rows="6" required minlength="10" maxlength="500"
+                        placeholder="Tulis pesan atau saran Anda (10 sampai 500 karakter)"></textarea>
+            </p>
+
+            <p>
+              <input type="checkbox" id="setuju" name="setuju" value="ya" required>
+              <label for="setuju">Saya setuju data ini digunakan untuk membalas pesan saya. *</label>
+            </p>
+          </fieldset>
+
+          <p>
+            <button type="submit">Kirim pesan</button>
+            <button type="reset">Kosongkan formulir</button>
+          </p>
+
+        </form>
+      </section>
+
+    <aside aria-labelledby="judul-aside">
+      <h2 id="judul-aside">Catatan</h2>
+      <p>Pesan akan dibalas dalam beberapa hari kerja melalui cara yang Anda pilih.</p>
+      <p><a href="index.html">Kembali ke beranda</a></p>
+    </aside>
+
+  </main>
+
+  <footer>
+    <p>&copy; 2026 ALLE HANDRO TIRTA AKBAT. tugas Pemrograman Web.</p>
+    <p>Hubungi Nomer saya: <a href="tel:+6282118607535">+62 821-1860-7535</a></p>
+    <address>
+      Surel: <a href="mailto:email@contoh.com">androtirta27@gmail.com</a>
+    </address>
+  </footer>
+
+</body>
+</html>
