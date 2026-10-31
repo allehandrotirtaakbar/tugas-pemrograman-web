@@ -1,0 +1,453 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+/* ===== 1. VARIABEL ===== */
+:root {
+  --warna-gelap: #0F172A;
+  --warna-latar: #F5F7FA;
+  --warna-kartu: #FFFFFF;
+  --warna-teks: #1F2933;
+  --warna-redup: #52606D;
+  --warna-aksen: #2563EB;
+  --warna-aksen-hover: #1D4ED8;
+  --warna-kuning: #F59E0B;
+  --warna-border: #D9E2EC;
+  --warna-error: #DC2626;
+  --warna-sukses: #16A34A;
+  --teks-di-gelap: #E2E8F0;
+  --teks-redup-di-gelap: #CBD5E1;
+  --link-di-gelap: #93C5FD;
+
+  --font-utama: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --radius: 12px;
+  --radius-kecil: 8px;
+  --lebar-maks: 1100px;
+  --bayangan: 0 2px 6px rgba(15, 23, 42, 0.06);
+  --bayangan-hover: 0 10px 24px rgba(15, 23, 42, 0.14);
+}
+
+/* ===== 2. RESET ===== */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ===== 3. GAYA DASAR ===== */
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-utama);
+  background: var(--warna-latar);
+  color: var(--warna-teks);
+  line-height: 1.6;
+}
+
+h1 {
+  font-size: 2.25rem;
+  line-height: 1.2;
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+h3 {
+  font-size: 1.2rem;
+  color: var(--warna-aksen);
+}
+
+p {
+  margin-bottom: 1rem;
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+a {
+  color: var(--warna-aksen);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--warna-aksen-hover);
+  text-decoration: underline;
+}
+
+time {
+  font-size: 0.875rem;
+  color: var(--warna-redup);
+}
+
+abbr {
+  text-decoration: none;
+  color: var(--warna-error);
+  font-weight: 700;
+}
+
+/* ===== 4. LAYOUT ===== */
+body > header,
+body > footer,
+main {
+  padding-inline: max(1rem, calc((100% - var(--lebar-maks)) / 2));
+}
+
+body > header {
+  padding-block: 2rem 0;
+}
+
+body > footer {
+  padding-block: 2rem;
+}
+
+main {
+  padding-block: 2.5rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 290px;
+  gap: 2rem;
+}
+
+main > section {
+  grid-column: 1;
+}
+
+main > aside {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  align-self: start;
+}
+
+/* ===== 5. KOMPONEN ===== */
+
+/* --- header halaman + nav --- */
+body > header,
+body > footer {
+  background: var(--warna-gelap);
+  color: var(--teks-di-gelap);
+}
+
+body > header h1 {
+  color: #FFFFFF;
+}
+
+body > header > p {
+  color: var(--teks-redup-di-gelap);
+  margin-top: 0.25rem;
+}
+
+nav ul {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  list-style: none;
+  margin-top: 1.5rem;
+}
+
+nav a {
+  display: inline-block;
+  padding: 0.75rem 0.25rem;
+  color: var(--teks-di-gelap);
+  text-decoration: none;
+  font-weight: 500;
+  border-bottom: 3px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+nav a:hover {
+  color: #FFFFFF;
+  text-decoration: none;
+  border-bottom-color: var(--warna-aksen);
+}
+
+nav a[aria-current="page"] {
+  color: #FFFFFF;
+  border-bottom-color: var(--warna-kuning);
+}
+
+/* --- section profil sebagai kartu --- */
+#profil {
+  background: var(--warna-kartu);
+  border: 1px solid var(--warna-border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: var(--bayangan);
+}
+
+/* --- portofolio --- */
+article {
+  background: var(--warna-kartu);
+  border: 1px solid var(--warna-border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--bayangan);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+article:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--bayangan-hover);
+}
+
+article > header {
+  margin-bottom: 0.75rem;
+}
+
+article > header p {
+  margin-bottom: 0;
+}
+
+article > footer {
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--warna-border);
+  font-size: 0.875rem;
+  color: var(--warna-redup);
+}
+
+article > footer p {
+  margin-bottom: 0;
+}
+
+/* --- aside --- */
+main > aside {
+  position: sticky;
+  top: 1rem;
+  background: var(--warna-kartu);
+  border: 1px solid var(--warna-border);
+  border-left: 4px solid var(--warna-aksen);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  box-shadow: var(--bayangan);
+}
+
+main > aside h2 {
+  font-size: 1.15rem;
+}
+
+dt {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--warna-redup);
+}
+
+dd {
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+/* --- formulir --- */
+fieldset {
+  background: var(--warna-kartu);
+  border: 1px solid var(--warna-border);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--bayangan);
+}
+
+legend {
+  padding: 0 0.5rem;
+  font-weight: 700;
+  color: var(--warna-aksen);
+}
+
+/* fieldset di dalam fieldset */
+fieldset fieldset {
+  border: none;
+  box-shadow: none;
+  background: transparent;
+  padding: 0;
+  margin-bottom: 1rem;
+}
+
+fieldset fieldset legend {
+  padding: 0;
+  margin-bottom: 0.5rem;
+  color: var(--warna-teks);
+  font-weight: 500;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-weight: 500;
+}
+
+/* label radio/checkbox sejajar dengan inputnya */
+input[type="radio"] + label,
+input[type="checkbox"] + label {
+  display: inline;
+  font-weight: 400;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+  accent-color: var(--warna-aksen);
+  margin-right: 0.5rem;
+  width: 1rem;
+  height: 1rem;
+  vertical-align: middle;
+}
+
+input:not([type="radio"]):not([type="checkbox"]):not([type="range"]),
+select,
+textarea {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid var(--warna-border);
+  border-radius: var(--radius-kecil);
+  background: #fff;
+  color: var(--warna-teks);
+  font: inherit;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+textarea {
+  resize: vertical;
+}
+
+input[type="range"] {
+  width: calc(100% - 3rem);
+  accent-color: var(--warna-aksen);
+  vertical-align: middle;
+}
+
+output {
+  display: inline-block;
+  min-width: 2rem;
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--warna-aksen);
+}
+
+/* tombol */
+button {
+  font: inherit;
+  font-weight: 600;
+  padding: 0.65rem 1.4rem;
+  margin-right: 0.5rem;
+  border-radius: var(--radius-kecil);
+  border: 2px solid var(--warna-aksen);
+  background: var(--warna-aksen);
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+button:hover {
+  background: var(--warna-aksen-hover);
+  border-color: var(--warna-aksen-hover);
+}
+
+button[type="reset"] {
+  background: transparent;
+  color: var(--warna-aksen);
+}
+
+button[type="reset"]:hover {
+  background: rgba(37, 99, 235, 0.08);
+  color: var(--warna-aksen-hover);
+}
+
+/* --- footer halaman --- */
+body > footer p {
+  margin-bottom: 0.5rem;
+}
+
+body > footer address {
+  font-style: normal;
+}
+
+body > footer a {
+  color: var(--link-di-gelap);
+}
+
+body > footer a:hover {
+  color: #fff;
+}
+
+/* ===== 6. STATE (hover, focus, validasi) ===== */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--warna-aksen);
+  outline-offset: 2px;
+}
+
+body > header a:focus-visible,
+body > footer a:focus-visible {
+  outline-color: var(--warna-kuning);
+}
+
+input:not([type="radio"]):not([type="checkbox"]):not([type="range"]):focus,
+select:focus,
+textarea:focus {
+  border-color: var(--warna-aksen);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+}
+
+input:user-invalid,
+select:user-invalid,
+textarea:user-invalid {
+  border-color: var(--warna-error);
+}
+
+input:user-valid,
+textarea:user-valid {
+  border-color: var(--warna-sukses);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; }
+  article:hover { transform: none; }
+}
+
+/* ===== 7. RESPONSIF ===== */
+@media (max-width: 800px) {
+  h1 {
+    font-size: 1.75rem;
+  }
+
+  nav ul {
+    justify-content: flex-start;
+  }
+
+  main {
+    grid-template-columns: minmax(0, 1fr);
+    padding-block: 1.5rem;
+    gap: 1.5rem;
+  }
+
+  main > section,
+  main > aside {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  main > aside {
+    position: static;
+  }
+
+  fieldset {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  button {
+    width: 100%;
+    margin: 0 0 0.75rem;
+  }
+}
