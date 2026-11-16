@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Github Filter</title>
+</head>
+<body>
+    <header>
+        <img src="assets/img/logo-github.png" alt="logo-github" width="50px">
+        <h1>Filter Github</h1>
+        <button type="button" id="theme-toggle">Theme Toggle</button>
+    </header>
+
+    <main>
+        <section>
+            <h2>Cari Nama Pengguna</h2>
+            <form id="search-form">
+                <label for="username">username</label>
+                <input type="text" id="username" required>
+                <button type="submit">Cari</button>
+            </form>
+        </section>
+
+        <section id="profile">
+            <img alt="">
+            <h2>Nama</h2>
+            <p>Bio</p>
+            <ul>
+                <li>Pengikut</li>
+                <li>Diikuti</li>
+                <li>Repo</li>
+            </ul>
+        </section>
+
+        <div class="layout">
+            <aside>
+                <h2>Filter</h2>
+                <div class="filter-group">
+                    <div>
+                        <label for="search-name">Cari Nama Repo</label>
+                        <input type="search" id="search-name" placeholder="Cari Nama">
+                    </div>
+
+                    <div>
+                        <label for="filter-language">Bahasa</label>
+                        <select id="filter-language">
+                            <option value="">Semua bahasa</option>
+                            <option value="JavaScript">JavaScript</option>
+                            <option value="Python">Python</option>
+                            <option value="PHP">PHP</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="sort-by">Urutkan</label>
+                        <select id="sort-by">
+                            <option value="terbaru">Terbaru</option>
+                            <option value="bintangTerbanyak">Bintang Terbanyak</option>
+                            <option value="nameAZ">Nama A-Z</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <input type="checkbox" id="only-original">
+                        <label for="only-original">Sembunyikan Hasil Repo Fork</label>
+                    </div>
+
+                    <div>
+                        <label for="min-stars">Minimal Bintang</label>
+                        <input type="number" id="min-stars" min="0" value="0">
+                    </div>
+
+                    <div>
+                        <button input type="button" id="reset-btn">Reset Filter</button>
+                    </div>
+                </div>
+            </aside>
+
+            <section>
+
+            </section>
+        </div>
+    </main>
+
+    <footer>
+
+    </footer>
+</body>
+</html>
