@@ -23,13 +23,13 @@
         </section>
 
         <section id="profile">
-            <img alt="">
+            <img alt="Foto Profil">
             <h2>Nama</h2>
             <p>Bio</p>
             <ul>
-                <li>Pengikut</li>
-                <li>Diikuti</li>
-                <li>Repo</li>
+                <li><span id="followers">Pengikut</span></li>
+                <li><span id="following">Diikuti</span></li>
+                <li><span id="repos">Repo</span></li>
             </ul>
         </section>
 
@@ -72,19 +72,35 @@
                     </div>
 
                     <div>
-                        <button input type="button" id="reset-btn">Reset Filter</button>
+                        <button type="button" id="reset-btn">Reset Filter</button>
                     </div>
                 </div>
             </aside>
 
             <section>
-
+                <h2>Hasil</h2>
+                <p id="result-count">Menampilkan 0 hasil</p>
+                <p id="loading" hidden>Memuat...</p>
+                <p id="error" hidden>Terjadi kesalahan saat memuat data.</p>
+                <p id="empty" hidden>Tidak ada hasil yang ditemukan.</p>
+                <div id="repo-grid">
+                    <article class="repo-card">
+                        <h3><a href="#">Nama Repo</a></h3>
+                        <p>Deskripsi Repo</p>
+                        <ul>
+                            <li><span id="language">Bahasa</span></li>
+                            <li><span id="stars">Bintang</span></li>
+                            <li><span id="forks">Fork</span></li>
+                        </ul>
+                        <p>Tanggal Update: <time datetime="2017-02-14">Tanggal Update</time></p>
+                    </article>
+                </div>
             </section>
         </div>
     </main>
 
     <footer>
-
+        <p>Copyright &copy; ALLE HANDRO TIRTA AKBAR 2026 <a href="https://github.com/allehandrotirtaakbar">Github</a>. All rights reserved.</p>
     </footer>
 </body>
 </html>
