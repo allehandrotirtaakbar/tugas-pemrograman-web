@@ -22,3 +22,32 @@ body {
     padding: 0;
 }
 
+header {
+    display: flex;
+    background-color: var(--card);
+    align-items: center;
+    gap: 1rem;
+    border-bottom: 1px solid var(--border);
+}
+
+header img {
+    margin: 0.5rem;
+    width: 50px;
+}
+
+#theme-toggle {
+    background-color: var(--card);
+    color: var(--text);
+    border: 1px solid var(--border);
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: 1rem;
+    border-radius: 20px
+}
+
+#theme-toggle:hover {
+    background-color: var(--accent);
+    color: var(--bg);
+    border: 1px solid var(--accent);
+}
