@@ -5,6 +5,7 @@
     --text : #e6edf3;
     --muted : #8b949e;
     --accent : #2f81f6;
+    --other-card : #323d4d;
 }
 
 *::before, *::after {
@@ -51,3 +52,100 @@ header img {
     color: var(--bg);
     border: 1px solid var(--accent);
 }
+
+main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+#repo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.repo-card {
+    background-color: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 1rem;
+    transition: transform 0.2s;
+}
+.repo-card:hover {
+    transform: scale(1.05);
+}
+
+.repo-card h3 a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+ul {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+    gap: 0.5rem;
+}
+
+.language {
+    padding: 0.5rem;
+    border-radius: 5px;
+    background-color: var(--other-card);
+}
+
+#username, 
+#search-name, 
+#min-stars,
+#filter-language,
+#sort-by {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    background-color: var(--card);
+    color: var(--text);
+}
+
+#username:focus, 
+#search-name:focus, 
+#min-stars:focus,
+#filter-language:focus,
+#sort-by:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+#theme-toggle,
+#search-toggle,
+#reset-btn {
+    background-color: var(--card);
+    color: var(--text);
+    border: 1px solid var(--border);
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border-radius: 20px;
+}
+
+#theme-toggle:hover,
+#search-toggle:hover,
+#reset-btn:hover {
+    background-color: var(--accent);
+    color: var(--bg);
+    border: 1px solid var(--accent);
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem;
+}
+
