@@ -28,3 +28,32 @@ const themeToggle = document.querySelector("#theme-toggle");
 
 // ===== Data =====
 let allRepos = [];
+
+async function fetchJSON(url) {
+    const response = await fetch(url);
+
+    if (response.status === 404) throw new Error("NOT_FOUND");
+    if (response.status === 403 || response.status === 429) throw new Error("RATE_LIMIT");
+    if (!response.ok) throw new Error("HTTP_" + response.status);
+
+    return response.json();
+}
+
+async function loadUser(username) {
+    const name = encodeURIComponent(username);
+
+    const [user, repos] = await Promise.all([
+        fetchJSON(`https://api.github.com/users/${name}`),
+        fetchJSON(`https://api.github.com/users/${name}/repos?per_page=100&sort=updated`),
+    ]);
+
+    allRepos = repos;
+    console.log(user, repos);
+}
+
+searchForm.addEventListener("submit", (event) => {
+    event.preventDefault(); // cegah halaman reload
+    const username = usernameInput.value.trim();
+    if (!username) return;
+    loadUser(username);
+});
