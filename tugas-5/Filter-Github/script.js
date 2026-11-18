@@ -200,3 +200,323 @@ function displayProfile(user) {
 
     reposElement.textContent = `${user.public_repos} Repo`;
 }
+
+
+// ===================================
+//  FUNGSI FILTER REPOSITORY
+// ===================================
+
+function getFilteredRepositories() {
+
+    // Mengambil nilai dari input filter
+    const keyword = repoNameInput.value.trim().toLowerCase();
+
+    const selectedLanguage = languageFilter.value;
+
+    const onlyOriginal = onlyOriginalCheckbox.checked;
+
+    const minimumStars = Math.max(
+        0,
+        Number(minStarsInput.value) || 0
+    );
+
+
+    // Menyaring repository berdasarkan kondisi
+    const filteredRepositories = allRepositories.filter((repo) => {
+
+        // Filter berdasarkan nama repository
+        const matchesName = repo.name
+            .toLowerCase()
+            .includes(keyword);
+
+        // Filter berdasarkan bahasa pemrograman
+        const matchesLanguage =
+            selectedLanguage === "" ||
+            repo.language === selectedLanguage;
+
+        // Filter repository fork
+        const matchesOriginal =
+            !onlyOriginal || !repo.fork;
+
+        // Filter berdasarkan jumlah stars
+        const matchesStars =
+            repo.stargazers_count >= minimumStars;
+
+
+        // Repository harus memenuhi seluruh kondisi
+        return (
+            matchesName &&
+            matchesLanguage &&
+            matchesOriginal &&
+            matchesStars
+        );
+
+    });
+
+
+    // ===================================
+    //  MENGURUTKAN REPOSITORY
+    // ===================================
+
+    if (sortBy.value === "terbaru") {
+
+        filteredRepositories.sort((a, b) => {
+            return new Date(b.updated_at) - new Date(a.updated_at);
+        });
+
+    } else if (sortBy.value === "bintangTerbanyak") {
+
+        filteredRepositories.sort((a, b) => {
+            return b.stargazers_count - a.stargazers_count;
+        });
+
+    } else if (sortBy.value === "nameAZ") {
+
+        filteredRepositories.sort((a, b) => {
+            return a.name.localeCompare(b.name, "id");
+        });
+
+    }
+
+
+    return filteredRepositories;
+}
+
+
+
+// ===================================
+// 8. MEMBUAT INFORMASI REPOSITORY
+// ===================================
+
+function createInfoItem(className, text) {
+
+    const item = document.createElement("li");
+
+    const span = document.createElement("span");
+
+    span.className = className;
+
+    span.textContent = text;
+
+    item.append(span);
+
+    return item;
+}
+
+
+// ===================================
+// 9. MEMBUAT KARTU REPOSITORY
+// ===================================
+
+function createRepositoryCard(repo) {
+
+    // Membuat elemen article
+    const article = document.createElement("article");
+
+    article.className = "repo-card";
+
+
+    // Membuat judul repository
+    const heading = document.createElement("h3");
+
+    const link = document.createElement("a");
+
+    link.href = repo.html_url;
+
+    link.textContent = repo.name;
+
+    link.target = "_blank";
+
+    link.rel = "noopener noreferrer";
+
+    heading.append(link);
+
+
+    // Membuat deskripsi repository
+    const description = document.createElement("p");
+
+    description.textContent =
+        repo.description || "Tidak ada deskripsi.";
+
+
+    // Membuat informasi repository
+    const infoList = document.createElement("ul");
+
+    infoList.append(
+        createInfoItem(
+            "language",
+            `Bahasa: ${repo.language || "Tidak diketahui"}`
+        ),
+
+        createInfoItem(
+            "stars",
+            `Bintang: ${repo.stargazers_count}`
+        ),
+
+        createInfoItem(
+            "forks",
+            `Fork: ${repo.forks_count}`
+        )
+    );
+
+
+    // Membuat tanggal update
+    const updatedParagraph = document.createElement("p");
+
+    const updatedTime = document.createElement("time");
+
+    updatedTime.dateTime = repo.updated_at;
+
+    updatedTime.textContent = new Date(
+        repo.updated_at
+    ).toLocaleDateString("id-ID", {
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+    });
+
+    updatedParagraph.append(
+        "Tanggal Update: ",
+        updatedTime
+    );
+
+
+    // Menggabungkan semua elemen
+    article.append(
+        heading,
+        description,
+        infoList,
+        updatedParagraph
+    );
+
+
+    return article;
+}
+
+
+// ===================================
+//  MENAMPILKAN SELURUH REPOSITORY
+// ===================================
+
+function renderRepositories() {
+
+    if (!hasSearched) {
+        return;
+    }
+
+    // Mengambil repository yang sudah difilter
+    const filteredRepositories = getFilteredRepositories();
+
+    // Mengosongkan tampilan sebelumnya
+    repoGrid.innerHTML = "";
+
+    // Memperbarui jumlah hasil
+    resultCount.textContent =
+        `Menampilkan ${filteredRepositories.length} dari ${allRepositories.length} hasil`;
+
+
+    // Jika tidak ada hasil
+    if (filteredRepositories.length === 0) {
+
+        emptyMessage.hidden = false;
+
+        return;
+    }
+
+    emptyMessage.hidden = true;
+
+
+    // Menyiapkan tempat sementara untuk kartu
+    const fragment = document.createDocumentFragment();
+
+    filteredRepositories.forEach((repo) => {
+
+        const card = createRepositoryCard(repo);
+
+        fragment.append(card);
+
+    });
+
+
+    // Memasukkan seluruh kartu ke HTML
+    repoGrid.append(fragment);
+}
+
+
+
+// ===================================
+//  FUNGSI PENCARIAN USERNAME
+// ===================================
+
+async function handleSearch(event) {
+
+    // Mencegah halaman melakukan reload
+    event.preventDefault();
+
+    // Mengambil username dari input
+    const username = usernameInput.value.trim();
+
+
+    // Memeriksa apakah username kosong
+    if (!username) {
+
+        showError("Masukkan username GitHub terlebih dahulu.");
+
+        return;
+    }
+
+
+    // Menampilkan loading
+    loadingMessage.hidden = false;
+
+    clearError();
+
+    emptyMessage.hidden = true;
+
+    hasSearched = false;
+
+    repoGrid.innerHTML = "";
+
+    resultCount.textContent = "Memuat data...";
+
+
+    try {
+
+        // Mengambil data dari GitHub
+        const { userData, reposData } =
+            await getGithubData(username);
+
+
+        // Menampilkan profil pengguna
+        displayProfile(userData);
+
+
+        // Menyimpan seluruh repository
+        allRepositories = reposData;
+
+        hasSearched = true;
+
+
+        // Menampilkan repository
+        renderRepositories();
+
+
+    } catch (error) {
+
+        // Mengosongkan data jika terjadi kesalahan
+        allRepositories = [];
+
+        resultCount.textContent = "Menampilkan 0 hasil";
+
+        showError(
+            error.message || "Terjadi kesalahan saat memuat data."
+        );
+
+
+    } finally {
+
+        // Menyembunyikan loading
+        loadingMessage.hidden = true;
+
+    }
+}
