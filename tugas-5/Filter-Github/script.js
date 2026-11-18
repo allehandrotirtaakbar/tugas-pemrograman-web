@@ -59,3 +59,144 @@ function showError(message) {
 function clearError() {
     errorMessage.hidden = true;
 }
+
+
+// ===================================
+//  MENGAMBIL DATA DARI GITHUB API
+// ===================================
+
+async function getGithubData(username) {
+
+    // Mengambil data profil pengguna
+    const userUrl = `https://api.github.com/users/${encodeURIComponent(username)}`;
+
+    const userResponse = await fetch(userUrl);
+
+    // Memeriksa apakah permintaan profil berhasil
+    if (!userResponse.ok) {
+
+        if (userResponse.status === 404) {
+            throw new Error("Username GitHub tidak ditemukan.");
+        }
+
+        if (userResponse.status === 403) {
+            throw new Error("Batas permintaan GitHub API tercapai. Coba lagi nanti.");
+        }
+
+        throw new Error("Gagal mengambil data pengguna.");
+    }
+
+    const userData = await userResponse.json();
+
+
+    // Mengambil data repository pengguna
+    const reposResponse = await fetch(
+        `${userUrl}/repos?per_page=100&sort=updated`
+    );
+
+    // Memeriksa apakah permintaan repository berhasil
+    if (!reposResponse.ok) {
+        throw new Error("Gagal mengambil daftar repository.");
+    }
+
+    const reposData = await reposResponse.json();
+
+
+    // Mengembalikan kedua data
+    return {
+        userData,
+        reposData
+    };
+}
+
+
+// ===================================
+//  MENAMPILKAN PROFIL PENGGUNA
+// ===================================
+
+function displayProfile(user) {
+
+    profileImage.src = user.avatar_url;
+
+    profileImage.alt = `Foto profil ${user.login}`;
+
+    profileName.textContent = user.name || user.login;
+
+    profileBio.textContent = user.bio || "Pengguna ini belum menambahkan bio.";
+
+    followersElement.textContent = `${user.followers} Pengikut`;
+
+    followingElement.textContent = `${user.following} Diikuti`;
+
+    reposElement.textContent = `${user.public_repos} Repo`;
+}
+
+// ===================================
+//  MENGAMBIL DATA DARI GITHUB API
+// ===================================
+
+async function getGithubData(username) {
+
+    // Mengambil data profil pengguna
+    const userUrl = `https://api.github.com/users/${encodeURIComponent(username)}`;
+
+    const userResponse = await fetch(userUrl);
+
+    // Memeriksa apakah permintaan profil berhasil
+    if (!userResponse.ok) {
+
+        if (userResponse.status === 404) {
+            throw new Error("Username GitHub tidak ditemukan.");
+        }
+
+        if (userResponse.status === 403) {
+            throw new Error("Batas permintaan GitHub API tercapai. Coba lagi nanti.");
+        }
+
+        throw new Error("Gagal mengambil data pengguna.");
+    }
+
+    const userData = await userResponse.json();
+
+
+    // Mengambil data repository pengguna
+    const reposResponse = await fetch(
+        `${userUrl}/repos?per_page=100&sort=updated`
+    );
+
+    // Memeriksa apakah permintaan repository berhasil
+    if (!reposResponse.ok) {
+        throw new Error("Gagal mengambil daftar repository.");
+    }
+
+    const reposData = await reposResponse.json();
+
+
+    // Mengembalikan kedua data
+    return {
+        userData,
+        reposData
+    };
+}
+
+
+// ===================================
+//  MENAMPILKAN PROFIL PENGGUNA
+// ===================================
+
+function displayProfile(user) {
+
+    profileImage.src = user.avatar_url;
+
+    profileImage.alt = `Foto profil ${user.login}`;
+
+    profileName.textContent = user.name || user.login;
+
+    profileBio.textContent = user.bio || "Pengguna ini belum menambahkan bio.";
+
+    followersElement.textContent = `${user.followers} Pengikut`;
+
+    followingElement.textContent = `${user.following} Diikuti`;
+
+    reposElement.textContent = `${user.public_repos} Repo`;
+}
