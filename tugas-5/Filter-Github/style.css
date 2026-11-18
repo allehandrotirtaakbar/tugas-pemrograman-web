@@ -86,7 +86,10 @@ main {
 }
 
 #profile-info ul {
+    display: flex;
+    gap: 1rem;
     margin: 0.5rem 0;
+    padding: 0;
     color: var(--muted);
     list-style-type: none;
 }
@@ -106,20 +109,11 @@ main {
 #sort-by {
     width: 100%;
     padding: 0.5rem;
+    border: 1px solid var(--border);
     border-radius: 10px;
-    border-style: none;
     background-color: var(--card);
     color: var(--text);
     font-family: inherit;
-}
-
-#username:hover,
-#search-name:hover,
-#min-stars:hover,
-#filter-language:hover,
-#sort-by:hover {
-    background-color: var(--accent-hover);
-    text-color: var(--text);
 }
 
 #username:focus,
@@ -127,7 +121,8 @@ main {
 #min-stars:focus,
 #filter-language:focus,
 #sort-by:focus {
-    outline: var(--accent) auto 1px;
+    outline: none;
+    border-color: var(--accent);
 }
 
 /* ========== TOMBOL ========== */
@@ -137,9 +132,8 @@ main {
     background-color: var(--card);
     color: var(--text);
     border: 1px solid var(--border);
-    border-style: none;
     border-radius: 10px;
-    padding: 0.5rem 0.5rem;
+    padding: 0.5rem 1rem;
     cursor: pointer;
     font-family: inherit;
 }
@@ -148,8 +142,15 @@ main {
 #search-toggle:hover,
 #reset-btn:hover {
     background-color: var(--accent-hover);
-    color: var(--bg);
-    border: 1px solid var(--accent-hover);
+    color: var(--text);
+    border-color: var(--accent-hover);
+}
+
+#theme-toggle:focus-visible,
+#search-toggle:focus-visible,
+#reset-btn:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
 }
 
 /* ========== KARTU REPO ========== */
@@ -163,8 +164,7 @@ main {
     background-color: var(--card);
     border: 1px solid var(--border);
     border-radius: 5px;
-    padding: 0,5rem;
-    margin-bottom: 1rem;
+    padding: 1rem;
     transition: transform 0.2s;
 }
 
@@ -192,8 +192,12 @@ main {
     background-color: var(--other-card);
 }
 
-/* ========== FOOTER ========== */
-.footer {
+/* ========== LINK & FOOTER ========== */
+a {
+    color: var(--accent);
+}
+
+footer {
     text-align: center;
     padding: 1rem;
     background-color: var(--card);
