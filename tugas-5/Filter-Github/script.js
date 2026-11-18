@@ -520,3 +520,102 @@ async function handleSearch(event) {
 
     }
 }
+
+
+// ===================================
+//  EVENT LISTENER PENCARIAN
+// ===================================
+
+searchForm.addEventListener("submit", handleSearch);
+
+
+// ===================================
+//  EVENT LISTENER FILTER
+// ===================================
+
+function updateRepositoryView() {
+
+    if (hasSearched) {
+        renderRepositories();
+    }
+
+}
+
+
+// Mencari berdasarkan nama repository
+repoNameInput.addEventListener(
+    "input",
+    updateRepositoryView
+);
+
+
+// Memfilter berdasarkan bahasa
+languageFilter.addEventListener(
+    "change",
+    updateRepositoryView
+);
+
+
+// Mengurutkan repository
+sortBy.addEventListener(
+    "change",
+    updateRepositoryView
+);
+
+
+// Menyembunyikan repository fork
+onlyOriginalCheckbox.addEventListener(
+    "change",
+    updateRepositoryView
+);
+
+
+// Memfilter berdasarkan minimal stars
+minStarsInput.addEventListener(
+    "input",
+    updateRepositoryView
+);
+
+
+// ===================================
+//  TOMBOL RESET FILTER
+// ===================================
+
+resetButton.addEventListener("click", function() {
+
+    // Mengosongkan pencarian nama
+    repoNameInput.value = "";
+
+    // Mengembalikan bahasa ke semua bahasa
+    languageFilter.value = "";
+
+    // Mengembalikan urutan ke terbaru
+    sortBy.value = "terbaru";
+
+    // Menghilangkan centang checkbox
+    onlyOriginalCheckbox.checked = false;
+
+    // Mengembalikan minimal stars ke 0
+    minStarsInput.value = 0;
+
+    // Memperbarui tampilan repository
+    updateRepositoryView();
+
+});
+
+
+// ===================================
+//  TOGGLE DARK MODE
+// ===================================
+
+themeToggle.addEventListener("click", function() {
+
+    const isDark = document.body.classList.toggle("dark-theme");
+
+    if (isDark) {
+        themeToggle.textContent = "Light";
+    } else {
+        themeToggle.textContent = "Dark";
+    }
+
+});

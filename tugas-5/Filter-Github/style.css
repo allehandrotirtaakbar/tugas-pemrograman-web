@@ -1,13 +1,15 @@
 /* ========== VARIABEL ========== */
+
 :root {
-    --bg: #0d1117;
-    --card: #161b22;
-    --border: #30363d;
-    --text: #e6edf3;
-    --muted: #8b949e;
-    --accent: #2f81f6;
-    --other-card: #323d4d;
-    --accent-hover: #488aee;
+    /* LIGHT MODE */
+    --bg: #f6f8fa;
+    --card: #ffffff;
+    --border: #d0d7de;
+    --text: #1f2328;
+    --muted: #656d76;
+    --accent: #0969da;
+    --other-card: #eaeef2;
+    --accent-hover: #0860ca;
 }
 
 /* ========== RESET & DASAR ========== */
@@ -191,6 +193,42 @@ main {
     border-radius: 10px;
     background-color: var(--other-card);
 }
+
+
+/* ========== DARK MODE ========== */
+
+body.dark-theme {
+
+    --bg: #0d1117;
+    --card: #161b22;
+    --border: #30363d;
+    --text: #e6edf3;
+    --muted: #8b949e;
+    --accent: #2f81f6;
+    --other-card: #323d4d;
+    --accent-hover: #488aee;
+
+}
+
+/* Logo GitHub saat Dark Mode */
+body.dark-theme header img {
+    filter: invert(1);
+}
+
+/* Memperbaiki warna input autofill */
+body.dark-theme input:-webkit-autofill,
+body.dark-theme input:-webkit-autofill:hover,
+body.dark-theme input:-webkit-autofill:focus {
+
+    -webkit-text-fill-color: var(--text);
+
+    -webkit-box-shadow:
+        0 0 0 1000px var(--card) inset;
+
+    caret-color: var(--text);
+
+}
+
 
 /* ========== LINK & FOOTER ========== */
 a {
