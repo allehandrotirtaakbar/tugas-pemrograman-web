@@ -197,10 +197,50 @@ a {
     color: var(--accent);
 }
 
-footer {
+.footer {
     text-align: center;
     padding: 1rem;
     background-color: var(--card);
     border-top: 1px solid var(--border);
     margin-top: 2rem;
+}
+
+/* ========== RESPONSIF ========== */
+@media (max-width: 768px) {
+    .layout {
+        grid-template-columns: 1fr;
+    }
+
+    main {
+        padding: 0.75rem;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.25rem;
+    }
+
+    #profile {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    #profile-info ul {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    #repo-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .repo-card ul {
+        flex-wrap: wrap;
+    }
+
+    .repo-card,
+    .repo-card h3 {
+        overflow-wrap: break-word;
+    }
 }
