@@ -1,59 +1,61 @@
-console.log("Script Jalan");
 
-// ===== Elemen =====
+// ===================================
+//  MENGAMBIL ELEMEN DARI HTML
+// ===================================
+
+// Form pencarian
 const searchForm = document.querySelector("#search-form");
 const usernameInput = document.querySelector("#username");
 
-const profileImg = document.querySelector("#profile img");
+// Bagian profil pengguna
+const profileImage = document.querySelector("#profile img");
 const profileName = document.querySelector("#profile-info h2");
 const profileBio = document.querySelector("#profile-info p");
-const followersEl = document.querySelector("#followers");
-const followingEl = document.querySelector("#following");
-const reposEl = document.querySelector("#repos");
 
-const searchName = document.querySelector("#search-name");
-const filterLanguage = document.querySelector("#filter-language");
-const sortBy = document.querySelector("#sort-by");
-const onlyOriginal = document.querySelector("#only-original");
-const minStars = document.querySelector("#min-stars");
-const resetBtn = document.querySelector("#reset-btn");
+// Informasi followers, following, dan repository
+const followersElement = document.querySelector("#followers");
+const followingElement = document.querySelector("#following");
+const reposElement = document.querySelector("#repos");
 
-const resultCount = document.querySelector("#result-count");
-const loadingEl = document.querySelector("#loading");
-const errorEl = document.querySelector("#error");
-const emptyEl = document.querySelector("#empty");
+// Bagian hasil repository
 const repoGrid = document.querySelector("#repo-grid");
+const resultCount = document.querySelector("#result-count");
 
+// Informasi loading dan error
+const loadingMessage = document.querySelector("#loading");
+const errorMessage = document.querySelector("#error");
+const emptyMessage = document.querySelector("#empty");
+
+// Elemen filter
+const repoNameInput = document.querySelector("#search-name");
+const languageFilter = document.querySelector("#filter-language");
+const sortBy = document.querySelector("#sort-by");
+const onlyOriginalCheckbox = document.querySelector("#only-original");
+const minStarsInput = document.querySelector("#min-stars");
+const resetButton = document.querySelector("#reset-btn");
+
+// Tombol theme
 const themeToggle = document.querySelector("#theme-toggle");
 
-// ===== Data =====
-let allRepos = [];
+// ===================================
+//  PENAMPUNG DATA
+// ===================================
 
-async function fetchJSON(url) {
-    const response = await fetch(url);
+let allRepositories = [];
+let hasSearched = false;
 
-    if (response.status === 404) throw new Error("NOT_FOUND");
-    if (response.status === 403 || response.status === 429) throw new Error("RATE_LIMIT");
-    if (!response.ok) throw new Error("HTTP_" + response.status);
+// Menghapus repository contoh dari HTML
+repoGrid.innerHTML = "";
 
-    return response.json();
+// ===================================
+//  FUNGSI UNTUK MENAMPILKAN ERROR
+// ===================================
+
+function showError(message) {
+    errorMessage.textContent = message;
+    errorMessage.hidden = false;
 }
 
-async function loadUser(username) {
-    const name = encodeURIComponent(username);
-
-    const [user, repos] = await Promise.all([
-        fetchJSON(`https://api.github.com/users/${name}`),
-        fetchJSON(`https://api.github.com/users/${name}/repos?per_page=100&sort=updated`),
-    ]);
-
-    allRepos = repos;
-    console.log(user, repos);
+function clearError() {
+    errorMessage.hidden = true;
 }
-
-searchForm.addEventListener("submit", (event) => {
-    event.preventDefault(); // cegah halaman reload
-    const username = usernameInput.value.trim();
-    if (!username) return;
-    loadUser(username);
-});
